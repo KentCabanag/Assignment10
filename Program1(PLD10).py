@@ -15,23 +15,27 @@
 	#- Create a demo of your program (1-2 min) and send it directly to my messenger.
 
 import cv2
+import datetime
 import webbrowser
 
-from cv2 import QRCodeDetector
-
-cap = cv2.VideoCapture(0)
+capture = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
 
 while True:
-	_, img = cap.read()
+	_, img = capture.read()
 	data, bbox, _ = detector.detectAndDecode(img)
 	if data:
 		a=data
+		with open("QR Code.txt", mode = 'w') as file:
+			file.write(f'Scanned QR Code Result: \n{a} \nRecorded at %s.' %
+			    (datetime.datetime.now()))
+		print(a)
 		break
-	cv2.imshow("QRCODEscanner", img)
+
+	cv2.imshow("QR Code Scanner", img)
 	if cv2.waitKey(1) == ord("q"):
 		break
 
 b=webbrowser.open(str(a))
-cap.release()
-cv2.destroyAllWindows()
+capture.release()
+cv2.destroyAllWindows
