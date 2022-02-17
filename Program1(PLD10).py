@@ -25,17 +25,17 @@ while True:
 	_, img = capture.read()
 	data, bbox, _ = detector.detectAndDecode(img)
 	if data:
-		a=data
+		one=data
 		with open("QR Code.txt", mode = 'w') as file:
-			file.write(f'Scanned QR Code Result: \n{a} \nRecorded at %s.' %
-			    (datetime.datetime.now()))
-		print(a)
+			file.write(f'Scanned QR Code Result: \n{one} \nRecorded at %s.' %
+			(datetime.datetime.now()))
+		print(one)
 		break
 
 	cv2.imshow("QR Code Scanner", img)
 	if cv2.waitKey(1) == ord("q"):
 		break
 
-b=webbrowser.open(str(a))
+b=webbrowser.open(str(one))
 capture.release()
 cv2.destroyAllWindows
